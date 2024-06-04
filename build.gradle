@@ -19,13 +19,15 @@ configurations {
     }
 }
 
+print(System.getenv("GITHUB_TOKEN"))
+
 repositories {
     mavenCentral()
     maven {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/al-bina-co-hahaton-2024/back-library")
         credentials {
-            username = "bigtows"
+            username = "token"
             password = findProperty("github.self.token") ?: System.getenv("GITHUB_TOKEN")
         }
     }
