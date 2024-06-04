@@ -21,6 +21,14 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/al-bina-co-hahaton-2024/back-library")
+        credentials {
+            username = "bigtows"
+            password = findProperty("github.self.token") ?: System.getenv("SELF_ACCESS_TOKEN")
+        }
+    }
 }
 
 ext {
@@ -34,6 +42,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+
+    implementation 'ru.albina:backlib:0.7.0'
 
 
 
