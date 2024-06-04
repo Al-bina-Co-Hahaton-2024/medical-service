@@ -4,8 +4,6 @@ MAINTAINER Alexander <BigTows> Chapchuk
 COPY --chown=gradle:gradle . /home/gradle/project
 WORKDIR /home/gradle/project
 
-RUN echo $GITHUB_TOKEN
-
 RUN gradle clean build -x test
 
 FROM openjdk:17
