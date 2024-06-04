@@ -5,6 +5,35 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-<!--    <changeSet id="001" author="alexander (bigtows) chapchuk">-->
-<!--    </changeSet>-->
+    <changeSet id="001" author="alexander (bigtows) chapchuk">
+        <createTable tableName="doctor">
+            <column name="user_id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="full_name" type="varchar(100)"/>
+            <column name="rate" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modality" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="optional_modality" type="varchar(30) []"/>
+        </createTable>
+        
+        <createTable tableName="absence_schedule">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="doctor_id" type="uuid">
+                <constraints referencedTableName="doctor" referencedColumnNames="user_id" foreignKeyName="doctor_id" nullable="false"/>
+            </column>
+            <column name="start" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence sequenceName="absence_schedule_sequence"/>
+    </changeSet>
 </databaseChangeLog>
