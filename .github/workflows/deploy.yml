@@ -49,6 +49,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          GITHUB_TOKEN: ${{ secrets.SELF_ACCESS_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.SELF_ACCESS_TOKEN }}
   deploy:
