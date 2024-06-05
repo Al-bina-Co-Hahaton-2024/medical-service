@@ -13,10 +13,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-  autoconfigure:
-    exclude: org.springdoc.core.configuration.SpringDocHateoasConfiguration
 server:
-  port: ${SERVER_HTTP_PORT:8080}
+  port: ${SERVER_HTTP_PORT:8081}
 springdoc:
   swagger-ui:
     path: /swagger-ui
