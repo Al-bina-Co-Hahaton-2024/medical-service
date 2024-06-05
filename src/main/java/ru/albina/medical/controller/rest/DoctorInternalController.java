@@ -29,6 +29,7 @@ public class DoctorInternalController {
     @PatchMapping("{id}")
     public void update(@PathVariable("id") UUID userId, @RequestBody DoctorUpdateRequest doctorUpdateRequest) {
         this.doctorCreateService.update(userId, doctorUpdateRequest);
+        //TODO CALL DRAFT Scheduler!
     }
 
 
