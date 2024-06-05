@@ -14,9 +14,7 @@
             <column name="rate" type="double">
                 <constraints nullable="false"/>
             </column>
-            <column name="modality" type="varchar(30)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="modality" type="varchar(30)"/>
             <column name="optional_modality" type="varchar(30) []"/>
         </createTable>
         
@@ -35,5 +33,19 @@
             </column>
         </createTable>
         <createSequence sequenceName="absence_schedule_sequence"/>
+    </changeSet>
+    <changeSet id="002" author="alexander (bigtows) chapchuk">
+        <dropColumn tableName="doctor" columnName="full_name"/>
+        <addColumn tableName="doctor">
+            <column name="hours" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="work_days" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weekend_days" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

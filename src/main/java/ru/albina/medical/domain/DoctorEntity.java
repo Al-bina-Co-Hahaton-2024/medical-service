@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
@@ -16,18 +17,21 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "doctor")
-public class Doctor {
+@Accessors(chain = true)
+public class DoctorEntity {
     @Id
     @Column(name = "user_id", nullable = false)
     private UUID id;
 
-    @Size(max = 100)
-    @Column(name = "full_name", length = 100)
-    private String fullName;
-
     @NotNull
     @Column(name = "rate", nullable = false)
     private Double rate;
+
+    @Embedded
+    private Schedule schedule;
+
+    @Column(name = "hours", nullable = false)
+    private Double hours;
 
     @Size(max = 30)
     @NotNull
@@ -45,10 +49,10 @@ public class Doctor {
                     )
             }
     )
-    @Column(name = "optional_modality",columnDefinition = "_varchar")
+    @Column(name = "optional_modality", columnDefinition = "_varchar")
     private List<Modality> optionalModality;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "doctorEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AbsenceSchedule> absenceSchedules;
 
 }

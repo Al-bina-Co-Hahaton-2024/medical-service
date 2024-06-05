@@ -19,8 +19,6 @@ configurations {
     }
 }
 
-print(System.getenv("GITHUB_TOKEN"))
-
 repositories {
     mavenCentral()
     maven {
@@ -35,7 +33,8 @@ repositories {
 
 ext {
     springDocVersion = "2.2.0"
-
+    mapStructVersion = '1.5.3.Final'
+    mapStructLombokVersion = '0.2.0'
 }
 
 dependencies {
@@ -43,10 +42,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 
     implementation 'ru.albina:backlib:0.7.0'
 
+    implementation "org.mapstruct:mapstruct:$mapStructVersion"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:$mapStructLombokVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
+
+    annotationProcessor('org.hibernate:hibernate-jpamodelgen:6.4.1.Final')
 
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion"

@@ -28,6 +28,6 @@ public class AbsenceSchedule {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "doctor_id", referencedColumnName = "user_id")
-    private Doctor doctor;
+    private DoctorEntity doctorEntity;
 
 }
