@@ -48,4 +48,23 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="003" author="alexander (bigtows) chapchuk">
+        <addColumn tableName="doctor">
+            <column name="start_contract" type="date"/>
+            <column name="end_contract" type="date"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="004" author="alexander (bigtows) chapchuk">
+        <createSequence sequenceName="service_number_sequence" startValue="100000"/>
+        <addColumn tableName="doctor">
+            <column name="service_number" type="bigint" defaultValueSequenceNext="service_number_sequence">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <sql>
+            UPDATE doctor SET service_number = (select nextval('service_number_sequence')) WHERE service_number IS NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

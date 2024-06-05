@@ -24,10 +24,19 @@ public class DoctorFinderService {
     public Page<Doctor> find(DoctorFind doctorFind, Pageable pageable) {
         Specification<DoctorEntity> specification = Specification.where(null);
 
-        if (doctorFind.getModality() != null) {
-            specification = specification.and(((root, query, criteriaBuilder) -> criteriaBuilder.equal(
-                    root.get(DoctorEntity_.modality), doctorFind.getModality())
+        if (doctorFind.getServiceNumberText() != null) {
+            specification = specification.or(((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(
+                            root.get(DoctorEntity_.serviceNumber).as(String.class),
+                            "%" + doctorFind.getServiceNumberText() + "%"
+                    )
             ));
+        }
+
+        if (doctorFind.getUserIds() != null) {
+            specification = specification.or(
+                    (root, query, criteriaBuilder) -> root.get(DoctorEntity_.id).in(doctorFind.getUserIds())
+            );
         }
 
         final var result = this.doctorRepository.findAll(specification, pageable);

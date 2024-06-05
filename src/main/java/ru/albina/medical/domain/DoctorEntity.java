@@ -7,9 +7,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +41,15 @@ public class DoctorEntity {
     @Enumerated(EnumType.STRING)
     private Modality modality;
 
+    @Column(name = "start_contract")
+    private LocalDate startContract;
+
+    @Column(name = "end_contract")
+    private LocalDate endContract;
+
+    @Column(name = "service_number", insertable = false, updatable = false)
+    @Generated(GenerationTime.INSERT)
+    private Long serviceNumber;
 
     @Type(
             value = ListArrayType.class,
