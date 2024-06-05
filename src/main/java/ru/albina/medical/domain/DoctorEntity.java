@@ -34,7 +34,6 @@ public class DoctorEntity {
     private Double hours;
 
     @Size(max = 30)
-    @NotNull
     @Column(name = "modality", nullable = false, length = 30)
     @Enumerated(EnumType.STRING)
     private Modality modality;
