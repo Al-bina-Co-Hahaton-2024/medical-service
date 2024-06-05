@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.albina.medical.domain.DoctorEntity;
+import ru.albina.medical.exception.EntityNotFoundException;
 import ru.albina.medical.repository.DoctorRepository;
 
 import java.util.UUID;
@@ -25,4 +26,10 @@ public class DoctorService {
         this.doctorRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
+    public DoctorEntity getById(UUID userId) {
+        return this.doctorRepository.findById(userId).orElseThrow(
+                () -> new EntityNotFoundException("Can't find doctors by id " + userId)
+        );
+    }
 }

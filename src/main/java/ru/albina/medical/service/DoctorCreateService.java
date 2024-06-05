@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.albina.medical.domain.DoctorEntity;
 import ru.albina.medical.domain.Schedule;
+import ru.albina.medical.dto.request.DoctorUpdateRequest;
+import ru.albina.medical.mapper.DoctorMapper;
 
 import java.util.UUID;
 
@@ -13,6 +15,8 @@ import java.util.UUID;
 public class DoctorCreateService {
 
     private final DoctorService doctorService;
+
+    private final DoctorMapper doctorMapper;
 
     @Transactional
     public void create(UUID userId) {
@@ -26,5 +30,11 @@ public class DoctorCreateService {
                 );
 
         this.doctorService.save(entity);
+    }
+
+    @Transactional
+    public void update(UUID userId, DoctorUpdateRequest doctorUpdateRequest) {
+        final var doctor = this.doctorService.getById(userId);
+        this.doctorMapper.update(doctor, doctorUpdateRequest);
     }
 }

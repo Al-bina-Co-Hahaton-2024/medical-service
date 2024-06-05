@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.albina.backlib.configuration.WebConstants;
 import ru.albina.medical.dto.request.DoctorCreate;
+import ru.albina.medical.dto.request.DoctorUpdateRequest;
 import ru.albina.medical.service.DoctorCreateService;
 import ru.albina.medical.service.DoctorService;
 
@@ -23,6 +24,11 @@ public class DoctorInternalController {
     @PostMapping
     public void create(@RequestBody DoctorCreate doctorCreate) {
         this.doctorCreateService.create(doctorCreate.getUserId());
+    }
+
+    @PatchMapping("{id}")
+    public void update(@PathVariable("id") UUID userId, @RequestBody DoctorUpdateRequest doctorUpdateRequest) {
+        this.doctorCreateService.update(userId, doctorUpdateRequest);
     }
 
 
