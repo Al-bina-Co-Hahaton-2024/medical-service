@@ -31,8 +31,7 @@ public class DoctorController {
             responses = {
                     @ApiResponse(
                             description = "ОК",
-                            responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = Page.class))
+                            responseCode = "200"
                     )
             }
     )
