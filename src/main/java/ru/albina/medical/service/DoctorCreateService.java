@@ -22,7 +22,7 @@ public class DoctorCreateService {
                 .setSchedule(
                         new Schedule()
                                 .setWorkDays(5)
-                                .setWeekendDays(5)
+                                .setWeekendDays(2)
                 );
 
         this.doctorService.save(entity);
