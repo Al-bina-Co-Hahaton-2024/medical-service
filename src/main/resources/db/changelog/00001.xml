@@ -17,13 +17,14 @@
             <column name="modality" type="varchar(30)"/>
             <column name="optional_modality" type="varchar(30) []"/>
         </createTable>
-        
+
         <createTable tableName="absence_schedule">
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
             <column name="doctor_id" type="uuid">
-                <constraints referencedTableName="doctor" referencedColumnNames="user_id" foreignKeyName="doctor_id" nullable="false"/>
+                <constraints referencedTableName="doctor" referencedColumnNames="user_id" foreignKeyName="doctor_id"
+                             nullable="false"/>
             </column>
             <column name="start" type="datetime">
                 <constraints nullable="false"/>
@@ -64,7 +65,19 @@
             </column>
         </addColumn>
         <sql>
-            UPDATE doctor SET service_number = (select nextval('service_number_sequence')) WHERE service_number IS NULL;
+            UPDATE doctor
+            SET service_number = (select nextval('service_number_sequence'))
+            WHERE service_number IS NULL;
         </sql>
+    </changeSet>
+
+    <changeSet id="005" author="alexander (bigtows) chapchuk">
+        <modifyDataType tableName="absence_schedule" columnName="start" newDataType="date"/>
+        <modifyDataType tableName="absence_schedule" columnName="end" newDataType="date"/>
+        <sql>
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+            ALTER TABLE absence_schedule ALTER COLUMN id SET DATA TYPE UUID USING (uuid_generate_v4());
+        </sql>
+        <dropSequence sequenceName="absence_schedule_sequence"/>
     </changeSet>
 </databaseChangeLog>
