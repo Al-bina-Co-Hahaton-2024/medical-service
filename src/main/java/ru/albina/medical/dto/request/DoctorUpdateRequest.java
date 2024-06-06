@@ -6,13 +6,14 @@ import ru.albina.medical.domain.Modality;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class DoctorUpdateRequest {
 
     private Double rate;
 
-    private List<DayOfWeek> workDays;
+    private Set<DayOfWeek> workDays;
 
     private Double hours;
 
