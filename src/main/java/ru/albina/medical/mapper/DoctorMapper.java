@@ -12,8 +12,6 @@ public interface DoctorMapper {
     Doctor from(DoctorEntity doctor);
 
     @Mapping(target = "serviceNumber", ignore = true)
-    @Mapping(target = "schedule.workDays", source = "workDays")
-    @Mapping(target = "schedule.weekendDays", source = "weekendDays")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "absenceSchedules", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

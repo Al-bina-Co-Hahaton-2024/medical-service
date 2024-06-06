@@ -12,6 +12,7 @@ import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -30,8 +31,17 @@ public class DoctorEntity {
     @Column(name = "rate", nullable = false)
     private Double rate;
 
-    @Embedded
-    private Schedule schedule;
+    @Type(
+            value = ListArrayType.class,
+            parameters = {
+                    @Parameter(
+                            name = ListArrayType.SQL_ARRAY_TYPE,
+                            value = "varchar"
+                    )
+            }
+    )
+    @Column(name = "work_days", columnDefinition = "_varchar")
+    private List<DayOfWeek> workDays;
 
     @Column(name = "hours", nullable = false)
     private Double hours;

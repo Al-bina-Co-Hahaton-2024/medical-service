@@ -3,6 +3,7 @@ package ru.albina.medical.dto.request;
 import lombok.Data;
 import ru.albina.medical.domain.Modality;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,10 +12,7 @@ public class DoctorUpdateRequest {
 
     private Double rate;
 
-    private Integer workDays;
-
-    private Integer weekendDays;
-
+    private List<DayOfWeek> workDays;
 
     private Double hours;
 

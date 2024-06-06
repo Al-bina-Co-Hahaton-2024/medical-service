@@ -80,4 +80,12 @@
         </sql>
         <dropSequence sequenceName="absence_schedule_sequence"/>
     </changeSet>
+
+    <changeSet id="006" author="alexander (bigtows) chapchuk">
+        <dropColumn tableName="doctor" columnName="weekend_days"/>
+        <dropColumn tableName="doctor" columnName="work_days"/>
+        <addColumn tableName="doctor">
+            <column name="work_days" type="varchar(30) []"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
