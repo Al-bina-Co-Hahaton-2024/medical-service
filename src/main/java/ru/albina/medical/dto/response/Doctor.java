@@ -3,7 +3,9 @@ package ru.albina.medical.dto.response;
 import lombok.Data;
 import ru.albina.medical.domain.Modality;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -11,6 +13,8 @@ import java.util.UUID;
 public class Doctor {
 
     private UUID id;
+
+    private List<DayOfWeek> workDays;
 
     private Double hours;
 
