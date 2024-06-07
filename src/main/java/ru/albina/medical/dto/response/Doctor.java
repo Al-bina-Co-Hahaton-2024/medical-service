@@ -31,4 +31,6 @@ public class Doctor {
     private Set<Modality> optionalModality;
 
     private List<Performance> performances;
+
+    private List<AbsenceSchedule> absenceSchedules;
 }

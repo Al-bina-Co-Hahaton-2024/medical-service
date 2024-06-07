@@ -3,7 +3,7 @@ package ru.albina.medical.service.schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.albina.medical.domain.AbsenceSchedule;
+import ru.albina.medical.domain.AbsenceScheduleEntity;
 import ru.albina.medical.service.DoctorService;
 
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public class AddAbsenceScheduleService {
     public void add(UUID userId, LocalDate start, LocalDate end) {
         var doctor = this.doctorService.getById(userId);
         doctor.getAbsenceSchedules().add(
-                new AbsenceSchedule()
+                new AbsenceScheduleEntity()
                         .setId(UUID.randomUUID())
                         .setStart(start)
                         .setEnd(end)
@@ -35,19 +35,19 @@ public class AddAbsenceScheduleService {
     }
 
 
-    private List<AbsenceSchedule> mergeVacations(List<AbsenceSchedule> absenceSchedules) {
-        if (absenceSchedules == null || absenceSchedules.isEmpty()) {
-            return absenceSchedules;
+    private List<AbsenceScheduleEntity> mergeVacations(List<AbsenceScheduleEntity> absenceScheduleEntities) {
+        if (absenceScheduleEntities == null || absenceScheduleEntities.isEmpty()) {
+            return absenceScheduleEntities;
         }
 
         // Сортировка отпусков по дате начала
-        absenceSchedules.sort(Comparator.comparing(AbsenceSchedule::getStart));
+        absenceScheduleEntities.sort(Comparator.comparing(AbsenceScheduleEntity::getStart));
 
-        List<AbsenceSchedule> mergedVacations = new ArrayList<>();
-        var current = absenceSchedules.get(0);
+        List<AbsenceScheduleEntity> mergedVacations = new ArrayList<>();
+        var current = absenceScheduleEntities.get(0);
 
-        for (int i = 1; i < absenceSchedules.size(); i++) {
-            AbsenceSchedule next = absenceSchedules.get(i);
+        for (int i = 1; i < absenceScheduleEntities.size(); i++) {
+            AbsenceScheduleEntity next = absenceScheduleEntities.get(i);
 
             if (current.getEnd().plusDays(1).isAfter(next.getStart()) || current.getEnd().isEqual(next.getStart())) {
                 // Объединение текущего отпуска с следующим

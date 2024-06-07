@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "absence_schedule")
 @Accessors(chain = true)
-public class AbsenceSchedule {
+public class AbsenceScheduleEntity {
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
@@ -37,7 +37,7 @@ public class AbsenceSchedule {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbsenceSchedule that = (AbsenceSchedule) o;
+        AbsenceScheduleEntity that = (AbsenceScheduleEntity) o;
         return Objects.equals(id, that.id);
     }
 

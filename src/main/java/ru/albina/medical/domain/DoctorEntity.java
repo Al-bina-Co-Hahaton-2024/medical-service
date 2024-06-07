@@ -74,6 +74,6 @@ public class DoctorEntity {
     private List<Modality> optionalModality;
 
     @OneToMany(mappedBy = "doctorEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AbsenceSchedule> absenceSchedules;
+    private List<AbsenceScheduleEntity> absenceSchedules;
 
 }
