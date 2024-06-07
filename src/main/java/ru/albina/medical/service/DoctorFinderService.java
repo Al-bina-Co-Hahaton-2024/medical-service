@@ -13,6 +13,8 @@ import ru.albina.medical.dto.response.Doctor;
 import ru.albina.medical.mapper.DoctorMapper;
 import ru.albina.medical.repository.DoctorRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DoctorFinderService {
@@ -42,5 +44,11 @@ public class DoctorFinderService {
         final var result = this.doctorRepository.findAll(specification, pageable);
 
         return result.map(this.doctorMapper::from);
+    }
+
+    public List<Doctor> getAll() {
+        return this.doctorRepository.findAll()
+                .stream().map(this.doctorMapper::from)
+                .toList();
     }
 }

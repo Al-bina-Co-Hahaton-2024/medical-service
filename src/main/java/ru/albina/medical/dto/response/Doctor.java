@@ -29,4 +29,6 @@ public class Doctor {
     private Modality modality;
 
     private Set<Modality> optionalModality;
+
+    private List<Performance> performances;
 }

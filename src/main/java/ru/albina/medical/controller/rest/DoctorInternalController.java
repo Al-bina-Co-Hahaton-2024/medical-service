@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import ru.albina.backlib.configuration.WebConstants;
 import ru.albina.medical.dto.request.DoctorCreate;
 import ru.albina.medical.dto.request.DoctorUpdateRequest;
+import ru.albina.medical.dto.response.Doctor;
 import ru.albina.medical.service.DoctorCreateService;
+import ru.albina.medical.service.DoctorFinderService;
 import ru.albina.medical.service.DoctorService;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -20,6 +23,13 @@ public class DoctorInternalController {
     private final DoctorCreateService doctorCreateService;
 
     private final DoctorService doctorService;
+
+    private final DoctorFinderService doctorFinderService;
+
+    @GetMapping
+    public List<Doctor> getAll() {
+        return this.doctorFinderService.getAll();
+    }
 
     @PostMapping
     public void create(@RequestBody DoctorCreate doctorCreate) {
