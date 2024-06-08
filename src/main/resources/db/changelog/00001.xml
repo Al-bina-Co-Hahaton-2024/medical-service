@@ -88,4 +88,10 @@
             <column name="work_days" type="varchar(30) []"/>
         </addColumn>
     </changeSet>
+    <changeSet id="007" author="alexander (bigtows) chapchuk">
+        <addColumn tableName="doctor">
+            <column name="start_work_day" type="TIME WITHOUT TIME ZONE"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

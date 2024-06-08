@@ -14,6 +14,7 @@ import org.hibernate.annotations.Type;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,6 +61,9 @@ public class DoctorEntity {
     @Column(name = "service_number", insertable = false, updatable = false)
     @Generated(GenerationTime.INSERT)
     private Long serviceNumber;
+
+    @Column(name = "start_work_day")
+    private LocalTime startWorkDay;
 
     @Type(
             value = ListArrayType.class,

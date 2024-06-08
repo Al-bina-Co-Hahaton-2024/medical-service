@@ -5,6 +5,7 @@ import ru.albina.medical.domain.Modality;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -33,4 +34,6 @@ public class Doctor {
     private List<Performance> performances;
 
     private List<AbsenceSchedule> absenceSchedules;
+
+    private LocalTime startWorkDay;
 }
