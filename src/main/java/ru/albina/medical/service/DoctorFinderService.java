@@ -14,6 +14,8 @@ import ru.albina.medical.mapper.DoctorMapper;
 import ru.albina.medical.repository.DoctorRepository;
 
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +51,13 @@ public class DoctorFinderService {
     public List<Doctor> getAll() {
         return this.doctorRepository.findAll()
                 .stream().map(this.doctorMapper::from)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Doctor> findByIds(Set<UUID> ids) {
+        return this.doctorRepository.findAllById(ids).stream()
+                .map(this.doctorMapper::from)
                 .toList();
     }
 }
