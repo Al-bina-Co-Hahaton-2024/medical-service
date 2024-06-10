@@ -14,17 +14,19 @@ import java.util.List;
 @Mapper(config = MapperConfiguration.class)
 public interface DoctorMapper {
 
+    Float PERFORMANCE_HOURS = 12f;
+
     List<Performance> PERFORMANCE_LIST = List.of(
-            Performance.builder().modality(Modality.KT).typeModality(TypeModality.DEFAULT).value(15).build(),
-            Performance.builder().modality(Modality.KT).typeModality(TypeModality.U).value(16).build(),
-            Performance.builder().modality(Modality.KT).typeModality(TypeModality.U2).value(11).build(),
-            Performance.builder().modality(Modality.MRT).typeModality(TypeModality.DEFAULT).value(12).build(),
-            Performance.builder().modality(Modality.MRT).typeModality(TypeModality.U).value(15).build(),
-            Performance.builder().modality(Modality.MRT).typeModality(TypeModality.U2).value(10).build(),
-            Performance.builder().modality(Modality.RG).typeModality(TypeModality.DEFAULT).value(49).build(),
-            Performance.builder().modality(Modality.FLG).typeModality(TypeModality.DEFAULT).value(181).build(),
-            Performance.builder().modality(Modality.MMG).typeModality(TypeModality.DEFAULT).value(49).build(),
-            Performance.builder().modality(Modality.DENSITOMETER).typeModality(TypeModality.DEFAULT).value(84).build()
+            Performance.builder().modality(Modality.KT).typeModality(TypeModality.DEFAULT).value(Math.round(15 / PERFORMANCE_HOURS) + 1).build(),
+            Performance.builder().modality(Modality.KT).typeModality(TypeModality.U).value(Math.round(16 / PERFORMANCE_HOURS) + 1).build(),
+            Performance.builder().modality(Modality.KT).typeModality(TypeModality.U2).value(Math.round(11 / PERFORMANCE_HOURS) + 1).build(),
+            Performance.builder().modality(Modality.MRT).typeModality(TypeModality.DEFAULT).value(Math.round(12 / PERFORMANCE_HOURS) + 1).build(),
+            Performance.builder().modality(Modality.MRT).typeModality(TypeModality.U).value(Math.round(15 / PERFORMANCE_HOURS) + 1).build(),
+            Performance.builder().modality(Modality.MRT).typeModality(TypeModality.U2).value(Math.round(10 / PERFORMANCE_HOURS) + 1).build(),
+            Performance.builder().modality(Modality.RG).typeModality(TypeModality.DEFAULT).value(Math.round(49 / PERFORMANCE_HOURS) + 1).build(),
+            Performance.builder().modality(Modality.FLG).typeModality(TypeModality.DEFAULT).value(Math.round(181 / PERFORMANCE_HOURS) + 1).build(),
+            Performance.builder().modality(Modality.MMG).typeModality(TypeModality.DEFAULT).value(Math.round(49 / PERFORMANCE_HOURS) + 1).build(),
+            Performance.builder().modality(Modality.DENSITOMETER).typeModality(TypeModality.DEFAULT).value(Math.round(84 / PERFORMANCE_HOURS) + 1).build()
     );
 
     @Mapping(target = "performances", expression = "java(PERFORMANCE_LIST)")
