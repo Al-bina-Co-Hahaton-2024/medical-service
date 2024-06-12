@@ -10,6 +10,7 @@ import ru.albina.medical.domain.DoctorEntity;
 import ru.albina.medical.domain.DoctorEntity_;
 import ru.albina.medical.dto.request.DoctorFind;
 import ru.albina.medical.dto.response.Doctor;
+import ru.albina.medical.exception.EntityNotFoundException;
 import ru.albina.medical.mapper.DoctorMapper;
 import ru.albina.medical.repository.DoctorRepository;
 
@@ -59,5 +60,14 @@ public class DoctorFinderService {
         return this.doctorRepository.findAllById(ids).stream()
                 .map(this.doctorMapper::from)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Doctor getById(UUID id) {
+        return this.doctorRepository.findById(id)
+                .map(this.doctorMapper::from)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Doctor with id " + id + " not found")
+                );
     }
 }

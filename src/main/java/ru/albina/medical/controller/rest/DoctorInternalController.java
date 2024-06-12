@@ -31,6 +31,12 @@ public class DoctorInternalController {
         return this.doctorFinderService.getAll();
     }
 
+
+    @GetMapping("/{id}")
+    public Doctor getAll(@PathVariable("id") UUID id) {
+        return this.doctorFinderService.getById(id);
+    }
+
     @PostMapping
     public void create(@RequestBody DoctorCreate doctorCreate) {
         this.doctorCreateService.create(doctorCreate.getUserId());
