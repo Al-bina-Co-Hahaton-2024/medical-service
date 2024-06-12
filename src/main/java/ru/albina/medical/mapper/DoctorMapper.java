@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper(config = MapperConfiguration.class)
 public interface DoctorMapper {
 
-    Float PERFORMANCE_HOURS = 12f;
+    Float PERFORMANCE_HOURS = 8f;
 
     List<Performance> PERFORMANCE_LIST = List.of(
             Performance.builder().modality(Modality.KT).typeModality(TypeModality.DEFAULT).value(Math.round(15 / PERFORMANCE_HOURS) + 1).build(),
