@@ -27,26 +27,57 @@ public class DoctorFinderService {
 
     @Transactional(readOnly = true)
     public Page<Doctor> find(DoctorFind doctorFind, Pageable pageable) {
+        return this.doctorRepository.findAll(this.build(doctorFind, false), pageable)
+                .map(this.doctorMapper::from);
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<Doctor> find(DoctorFind doctorFind) {
+        return this.doctorRepository.findAll(this.build(doctorFind, true)).stream()
+                .map(this.doctorMapper::from)
+                .toList();
+    }
+
+    private Specification<DoctorEntity> build(DoctorFind doctorFind, boolean strict) {
         Specification<DoctorEntity> specification = Specification.where(null);
 
         if (doctorFind.getServiceNumberText() != null) {
-            specification = specification.or(((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(
-                            root.get(DoctorEntity_.serviceNumber).as(String.class),
-                            "%" + doctorFind.getServiceNumberText() + "%"
-                    )
-            ));
-        }
-
-        if (doctorFind.getUserIds() != null) {
-            specification = specification.or(
-                    (root, query, criteriaBuilder) -> root.get(DoctorEntity_.id).in(doctorFind.getUserIds())
+            specification = this.merge(
+                    specification,
+                    (root, query, criteriaBuilder) ->
+                            criteriaBuilder.like(
+                                    root.get(DoctorEntity_.serviceNumber).as(String.class),
+                                    "%" + doctorFind.getServiceNumberText() + "%"
+                            ),
+                    strict
             );
         }
 
-        final var result = this.doctorRepository.findAll(specification, pageable);
+        if (doctorFind.getUserIds() != null) {
+            specification = this.merge(
+                    specification,
+                    (root, query, criteriaBuilder) -> root.get(DoctorEntity_.id).in(doctorFind.getUserIds()),
+                    strict
+            );
+        }
 
-        return result.map(this.doctorMapper::from);
+        if (doctorFind.getModality() != null) {
+            specification = this.merge(
+                    specification,
+                    (root, query, criteriaBuilder) -> root.get(DoctorEntity_.modality).in(doctorFind.getModality()),
+                    strict
+            );
+        }
+        return specification;
+    }
+
+    private Specification<DoctorEntity> merge(Specification<DoctorEntity> root, Specification<DoctorEntity> merged, boolean strict) {
+        if (strict) {
+            return root.and(merged);
+        } else {
+            return root.or(merged);
+        }
     }
 
     public List<Doctor> getAll() {

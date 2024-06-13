@@ -28,7 +28,7 @@ public class DoctorController {
 
 
     @Operation(
-            summary = "Поиск докторов",
+            summary = "Поиск докторов (не четкий поиск)",
             security = @SecurityRequirement(name = OpenApiConfiguration.JWT),
             responses = {
                     @ApiResponse(
@@ -40,11 +40,31 @@ public class DoctorController {
     //TODO @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
     public Page<Doctor> findDoctor(
-           DoctorFind doctorFind,
-           Pageable pageable
+            DoctorFind doctorFind,
+            Pageable pageable
     ) {
         return this.doctorFinderService.find(doctorFind, pageable);
     }
+
+
+    @Operation(
+            summary = "Поиск докторов по фильтрам без Page, но строгий поиск",
+            security = @SecurityRequirement(name = OpenApiConfiguration.JWT),
+            responses = {
+                    @ApiResponse(
+                            description = "ОК",
+                            responseCode = "200"
+                    )
+            }
+    )
+    //TODO @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/find")
+    public List<Doctor> findDoctor(
+            DoctorFind doctorFind
+    ) {
+        return this.doctorFinderService.find(doctorFind);
+    }
+
 
     @Operation(
             summary = "Поиск докторов по IDs",
