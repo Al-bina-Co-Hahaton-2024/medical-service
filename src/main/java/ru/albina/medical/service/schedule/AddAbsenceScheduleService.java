@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.albina.medical.domain.AbsenceScheduleEntity;
+import ru.albina.medical.dto.planner.PlannerOutDateDaysNotification;
 import ru.albina.medical.service.DoctorService;
+import ru.albina.medical.service.planner.PlannerNotificationService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ import java.util.UUID;
 public class AddAbsenceScheduleService {
 
     private final DoctorService doctorService;
+
+    private final PlannerNotificationService plannerNotificationService;
 
     @Transactional
     public void add(UUID userId, LocalDate start, LocalDate end) {
@@ -32,6 +36,8 @@ public class AddAbsenceScheduleService {
         final var merged = this.mergeVacations(new ArrayList<>(doctor.getAbsenceSchedules()));
 
         doctor.getAbsenceSchedules().removeIf(absenceSchedule -> !merged.contains(absenceSchedule));
+
+        this.plannerNotificationService.notifyAboutOutdatedDays(PlannerOutDateDaysNotification.builder().start(start).end(end).build());
     }
 
 
