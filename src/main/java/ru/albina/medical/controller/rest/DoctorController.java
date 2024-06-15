@@ -46,6 +46,22 @@ public class DoctorController {
         return this.doctorFinderService.find(doctorFind, pageable);
     }
 
+    @Operation(
+            summary = "Всех докторов",
+            security = @SecurityRequirement(name = OpenApiConfiguration.JWT),
+            responses = {
+                    @ApiResponse(
+                            description = "ОК",
+                            responseCode = "200"
+                    )
+            }
+    )
+    //TODO @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/")
+    public List<Doctor> findDoctor() {
+        return this.doctorFinderService.getAll();
+    }
+
 
     @Operation(
             summary = "Поиск докторов по фильтрам без Page, но строгий поиск",

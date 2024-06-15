@@ -80,6 +80,7 @@ public class DoctorFinderService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<Doctor> getAll() {
         return this.doctorRepository.findAll()
                 .stream().map(this.doctorMapper::from)
