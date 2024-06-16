@@ -38,9 +38,9 @@ public class DoctorController {
             }
     )
     //TODO @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping
+    @PostMapping
     public Page<Doctor> findDoctor(
-            DoctorFind doctorFind,
+            @RequestBody DoctorFind doctorFind,
             Pageable pageable
     ) {
         return this.doctorFinderService.find(doctorFind, pageable);
