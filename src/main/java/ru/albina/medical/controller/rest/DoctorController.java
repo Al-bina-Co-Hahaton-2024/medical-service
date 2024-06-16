@@ -76,7 +76,7 @@ public class DoctorController {
     //TODO @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/find")
     public List<Doctor> findDoctor(
-            DoctorFind doctorFind
+            @RequestBody DoctorFind doctorFind
     ) {
         return this.doctorFinderService.find(doctorFind);
     }
