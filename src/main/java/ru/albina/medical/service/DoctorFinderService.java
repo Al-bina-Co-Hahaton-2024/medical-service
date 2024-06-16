@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.albina.medical.client.UserClient;
 import ru.albina.medical.domain.DoctorEntity;
 import ru.albina.medical.domain.DoctorEntity_;
 import ru.albina.medical.dto.request.DoctorFind;
@@ -14,13 +15,13 @@ import ru.albina.medical.exception.EntityNotFoundException;
 import ru.albina.medical.mapper.DoctorMapper;
 import ru.albina.medical.repository.DoctorRepository;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class DoctorFinderService {
+
+    private final UserClient userClient;
     private final DoctorMapper doctorMapper;
     private final DoctorRepository doctorRepository;
 
@@ -41,6 +42,15 @@ public class DoctorFinderService {
 
     private Specification<DoctorEntity> build(DoctorFind doctorFind, boolean strict) {
         Specification<DoctorEntity> specification = Specification.where(null);
+
+        if (doctorFind.getFullName() != null) {
+            final var result = this.userClient.findByFullName(doctorFind.getFullName());
+            if (!result.isEmpty()) {
+                final var ids = new HashSet<>(Optional.ofNullable(doctorFind.getUserIds()).orElse(Set.of()));
+                ids.addAll(result);
+                doctorFind.setUserIds(ids);
+            }
+        }
 
         if (doctorFind.getServiceNumberText() != null) {
             specification = this.merge(

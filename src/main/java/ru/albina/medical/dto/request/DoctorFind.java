@@ -9,6 +9,8 @@ import java.util.UUID;
 @Data
 public class DoctorFind {
 
+    private String fullName;
+
     private Set<UUID> userIds;
 
     private String serviceNumberText;
