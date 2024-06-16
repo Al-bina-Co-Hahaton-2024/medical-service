@@ -38,8 +38,27 @@ public class DoctorController {
             }
     )
     //TODO @PreAuthorize("hasAnyRole('ADMIN')")
-    @PostMapping
+    @GetMapping
     public Page<Doctor> findDoctor(
+            DoctorFind doctorFind,
+            Pageable pageable
+    ) {
+        return this.doctorFinderService.find(doctorFind, pageable);
+    }
+
+    @Operation(
+            summary = "Поиск докторов (не четкий поиск)",
+            security = @SecurityRequirement(name = OpenApiConfiguration.JWT),
+            responses = {
+                    @ApiResponse(
+                            description = "ОК",
+                            responseCode = "200"
+                    )
+            }
+    )
+    //TODO @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping
+    public Page<Doctor> findDoctorPost(
             @RequestBody DoctorFind doctorFind,
             Pageable pageable
     ) {
